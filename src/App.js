@@ -9,7 +9,6 @@ import TokenDiscovery from './components/TokenDiscovery';
 import TokenInformation from './components/TokenInformation';
 import TokenSwapping from './components/TokenSwapping';
 import TransactionHistory from './components/TransactionHistory';
-import ThemeCustomization from './components/ThemeCustomization';
 import './styles/main.scss'; // Import SCSS file
 
 function App() {
@@ -80,10 +79,6 @@ function App() {
             <Route
               path="/transaction-history"
               element={<TransactionHistory />}
-            />
-            <Route
-              path="/theme-customization"
-              element={<ThemeCustomization />}
             />
           </Routes>
         </div>
