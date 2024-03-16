@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { WalletProvider } from './contexts/WalletContext';
 import Header from './layouts/Header';
-import Wallet from './components/Wallet';
 import TokenManagement from './components/TokenManagement';
 import TokenDiscovery from './components/TokenDiscovery';
 import TokenInformation from './components/TokenInformation';
@@ -60,7 +59,7 @@ function App() {
     <WalletProvider>
       <Router>
         <div
-          className={`App ${isDarkMode ? 'bg-dark text-white' : 'bg-neutral-100 text-black'} h-screen overflow-hidden`}
+          className={`App ${isDarkMode ? 'bg-[#1e1e1e] text-white' : 'bg-[#F0F3FF] text-[#4A4A4A]'} h-screen overflow-hidden`}
         >
           <Header
             isDarkMode={isDarkMode}
@@ -71,11 +70,10 @@ function App() {
             walletAddress={walletAddress}
           />
           <Routes>
-            <Route exact path="/" element={<Wallet />} />
+            <Route path="/" element={<TokenSwapping />} />
             <Route path="/token-management" element={<TokenManagement />} />
             <Route path="/token-discovery" element={<TokenDiscovery />} />
             <Route path="/token-information" element={<TokenInformation />} />
-            <Route path="/token-swapping" element={<TokenSwapping />} />
             <Route
               path="/transaction-history"
               element={<TransactionHistory />}

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -6,67 +6,68 @@ import {
   faMoon,
   faClipboard,
   faCheck,
+  faBars,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { WalletContext } from '../contexts/WalletContext';
+import '../styles/layouts/Header.scss'; // Import SCSS file
 
 function Header({ isDarkMode, toggleDarkMode }) {
   const [connecting, setConnecting] = useState(false);
-  const [error, setError] = useState('');
-  const [copied, setCopied] = useState(false); // Added state to track if the address is copied
+  const [copied, setCopied] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const { walletAddress, setWalletAddress } = useContext(WalletContext);
+
+  useEffect(() => {
+    const storedWalletAddress = localStorage.getItem('walletAddress');
+    if (storedWalletAddress) {
+      setWalletAddress(storedWalletAddress);
+    }
+  }, [setWalletAddress]);
 
   const connectWallet = async () => {
     try {
-      // Check if MetaMask is installed
       if (!window.ethereum) {
         throw new Error('MetaMask not detected.');
       }
-
-      // Request accounts from MetaMask
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
-
-      // Check if user has provided accounts
       if (accounts.length > 0) {
-        // Update wallet address and store it in local storage
         setWalletAddress(accounts[0]);
         localStorage.setItem('walletAddress', accounts[0]);
       } else {
         throw new Error('No accounts found.');
       }
-
-      // Reset error state if previously set
-      setError('');
+      setConnecting(false);
     } catch (error) {
-      // Handle errors
       console.error(error);
-      setError('Error connecting wallet. Please try again.');
     } finally {
-      // Set connecting state to false
       setConnecting(false);
     }
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(walletAddress);
-    setCopied(true); // Set copied state to true when address is copied
+    setCopied(true);
     setTimeout(() => {
-      setCopied(false); // Reset copied state after 2 seconds
+      setCopied(false);
     }, 2000);
   };
 
   return (
     <header
-      className={`text-white py-4 px-8 border-b-[0.5px] border-solid border-white flex justify-between items-center ${isDarkMode ? 'dark:bg-dark shadow-white' : 'bg-gray-600'}`}
+      className={`header py-4 px-8 flex justify-between items-center ${
+        isDarkMode ? 'bg-dark shadow-white' : 'bg-[#FFFFFF]'
+      }`}
     >
       <Link to="/">
-        <div className="flex items-center">
-          <img src="/logo.svg" alt="Nordek" className="w-28 mr-1" />
-          <h1 className="text-lg font-medium">DEX App</h1>
+        <div className="flex items-end">
+          <img src="/logo.png" alt="Nordek" className="h-9 mr-1.5" />
+          <h1 className="text-xl font-medium uppercase">Nordek DEX App</h1>
         </div>
       </Link>
-      <nav className="flex space-x-4">
+      <nav className="hidden md:flex space-x-8">
         <Link to="/" className="hover:text-gray-400">
           Wallet Integration
         </Link>
@@ -79,38 +80,39 @@ function Header({ isDarkMode, toggleDarkMode }) {
         <Link to="/token-information" className="hover:text-gray-400">
           Token Information
         </Link>
-        <Link to="/token-swapping" className="hover:text-gray-400">
-          Token Swapping
-        </Link>
         <Link to="/transaction-history" className="hover:text-gray-400">
           Transaction History
         </Link>
-        {/* Add other route links as needed */}
       </nav>
       <div className="flex items-center space-x-4">
         {walletAddress ? (
-          <p>
-            Connected: {walletAddress}
+          <div className="flex items-center bg-[#F0F3FF] rounded-lg px-3 py-1.5">
+            <div className={`${isDarkMode ? 'text-[#4A4A4A]' : ''}`}>
+              {walletAddress.substring(0, 5)}...
+              {walletAddress.substring(walletAddress.length - 4)}
+            </div>
             <button
-              className="text-blue-500 hover:text-blue-700 focus:outline-none"
+              className="ml-2 text-blue-500 hover:text-blue-700 focus:outline-none"
               onClick={copyToClipboard}
             >
               <FontAwesomeIcon icon={copied ? faCheck : faClipboard} />
             </button>
-          </p>
+          </div>
         ) : (
           <button
             onClick={connectWallet}
-            className="border border-white px-4 py-2 rounded-lg hover:bg-gray-800"
+            className="px-2 py-2 rounded-lg"
             disabled={connecting}
           >
-            {connecting ? 'Connecting...' : 'Connect Wallet'}
+            {connecting ? 'Connecting...' : 'Connect'}
           </button>
         )}
         <div>
           <button
             onClick={toggleDarkMode}
-            className="text-gray-400 hover:text-black-400 text-3xl"
+            className={`text-2xl ${
+              isDarkMode ? 'text-white' : 'text-[#4A4A4A]'
+            }`}
           >
             {isDarkMode ? (
               <FontAwesomeIcon icon={faSun} />
@@ -120,6 +122,44 @@ function Header({ isDarkMode, toggleDarkMode }) {
           </button>
         </div>
       </div>
+      {/* Mobile Menu Button */}
+      <div className="md:hidden">
+        <button
+          onClick={() => setShowMenu(!showMenu)}
+          className="text-2xl text-[#4A4A4A] focus:outline-none"
+        >
+          {showMenu ? (
+            <FontAwesomeIcon icon={faTimes} />
+          ) : (
+            <FontAwesomeIcon icon={faBars} />
+          )}
+        </button>
+      </div>
+      {/* Mobile Menu */}
+      {showMenu && (
+        <div className="mobile-menu top-0 h-screen">
+          <div className="menu-items">
+            <Link to="/" className="hover:text-gray-400">
+              Wallet Integration
+            </Link>
+            <Link to="/token-management" className="hover:text-gray-400">
+              Token Management
+            </Link>
+            <Link to="/token-discovery" className="hover:text-gray-400">
+              Token Discovery
+            </Link>
+            <Link to="/token-information" className="hover:text-gray-400">
+              Token Information
+            </Link>
+            <Link to="/transaction-history" className="hover:text-gray-400">
+              Transaction History
+            </Link>
+          </div>
+          <button className="close-menu" onClick={() => setShowMenu(false)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        </div>
+      )}
     </header>
   );
 }
