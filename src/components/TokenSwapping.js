@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import LivePriceChart from './LivePriceChart'; // Import the LivePriceChart component
 
 function TokenSwapping() {
   const [fromToken, setFromToken] = useState('');
@@ -22,8 +21,8 @@ function TokenSwapping() {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center mt-8 px-4 md:px-8">
-      <h1 className="text-4xl font-bold mb-8">Token Swapping</h1>
+    <div className="flex flex-col justify-start items-center mt-8">
+      <h1 className="md:text-4xl text-2xl font-bold mb-8">Token Swapping</h1>
       <div className="bg-white rounded-lg p-8 shadow-lg max-w-md w-full">
         <div className="flex flex-col space-y-4">
           <div>
@@ -137,7 +136,6 @@ function TokenSwapping() {
           )}
         </div>
       </div>
-      <LivePriceChart />
     </div>
   );
 }

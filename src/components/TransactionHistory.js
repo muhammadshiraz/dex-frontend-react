@@ -63,8 +63,10 @@ function TransactionHistory() {
   }, [dummyTransactions]);
 
   return (
-    <div className="px-4 py-6 md:px-8">
-      <h1 className="text-3xl font-semibold mb-6">Transaction History</h1>
+    <div className="px-4 py-6 md:px-8 h-screen">
+      <h1 className="md:text-4xl text-2xl font-semibold mb-6">
+        Transaction History
+      </h1>
       {error && <p className="text-red-600">{error}</p>}
       <div className="overflow-auto max-h-96">
         <table className="w-full border-collapse">

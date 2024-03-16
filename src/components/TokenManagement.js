@@ -61,8 +61,8 @@ function TokenManagement() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold mb-6 text-center">
+    <div className="container mx-auto px-4 py-8 h-screen">
+      <h1 className="md:text-4xl text-2xl font-semibold mb-6 text-center">
         Token Management
       </h1>
       {error && <p className="text-red-600 text-center">{error}</p>}

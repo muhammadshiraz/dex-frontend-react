@@ -29,8 +29,10 @@ function TokenInformation() {
   }, []);
 
   return (
-    <div className="px-4 md:px-8 py-6">
-      <h1 className="text-3xl font-semibold mb-6">Token Information</h1>
+    <div className="px-4 md:px-8 py-6 h-screen">
+      <h1 className="md:text-4xl text-2xl font-semibold mb-6">
+        Token Information
+      </h1>
       {isLoading ? (
         <p>Loading token information...</p>
       ) : error ? (

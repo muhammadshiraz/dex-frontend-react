@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { WalletProvider } from './contexts/WalletContext';
 import Header from './layouts/Header';
+import Main from './layouts/Main';
 import TokenManagement from './components/TokenManagement';
 import TokenDiscovery from './components/TokenDiscovery';
 import TokenInformation from './components/TokenInformation';
-import TokenSwapping from './components/TokenSwapping';
 import TransactionHistory from './components/TransactionHistory';
 import './styles/main.scss'; // Import SCSS file
 
@@ -59,7 +59,7 @@ function App() {
     <WalletProvider>
       <Router>
         <div
-          className={`App ${isDarkMode ? 'bg-[#1e1e1e] text-white' : 'bg-[#F0F3FF] text-[#4A4A4A]'} h-screen overflow-hidden`}
+          className={`App ${isDarkMode ? 'bg-[#1e1e1e] text-white' : 'bg-[#F0F3FF] text-[#4A4A4A]'} md:h-screen`}
         >
           <Header
             isDarkMode={isDarkMode}
@@ -70,7 +70,7 @@ function App() {
             walletAddress={walletAddress}
           />
           <Routes>
-            <Route path="/" element={<TokenSwapping />} />
+            <Route path="/" element={<Main />} />
             <Route path="/token-management" element={<TokenManagement />} />
             <Route path="/token-discovery" element={<TokenDiscovery />} />
             <Route path="/token-information" element={<TokenInformation />} />
