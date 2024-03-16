@@ -21,7 +21,7 @@ function TokenSwapping() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
+    <div className="flex flex-col justify-start items-center mt-8 px-4 md:px-8">
       <h1 className="text-4xl font-bold mb-8">Token Swapping</h1>
       <div className="bg-white rounded-lg p-8 shadow-lg max-w-md w-full">
         <div className="flex flex-col space-y-4">
@@ -34,7 +34,7 @@ function TokenSwapping() {
               value={fromToken}
               onChange={(e) => setFromToken(e.target.value)}
               placeholder="Enter token symbol"
-              className="border border-gray-300 rounded px-4 py-2 focus:outline-none w-full"
+              className="border border-gray-300 rounded px-4 py-2 focus:outline-none w-full text-gray-800"
             />
           </div>
           <div>
@@ -46,7 +46,7 @@ function TokenSwapping() {
               value={toToken}
               onChange={(e) => setToToken(e.target.value)}
               placeholder="Enter token symbol"
-              className="border border-gray-300 rounded px-4 py-2 focus:outline-none w-full"
+              className="border border-gray-300 rounded px-4 py-2 focus:outline-none w-full text-gray-800"
             />
           </div>
           <div>
@@ -58,7 +58,7 @@ function TokenSwapping() {
               value={swapAmount}
               onChange={(e) => setSwapAmount(e.target.value)}
               placeholder="Enter amount"
-              className="border border-gray-300 rounded px-4 py-2 focus:outline-none w-full"
+              className="border border-gray-300 rounded px-4 py-2 focus:outline-none w-full text-gray-800"
             />
           </div>
           <button

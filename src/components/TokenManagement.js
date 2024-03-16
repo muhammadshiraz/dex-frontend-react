@@ -62,11 +62,15 @@ function TokenManagement() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold mb-6">Token Management</h1>
-      {error && <p className="text-red-600">{error}</p>}
-      <div className="bg-white rounded-md shadow-md p-4">
-        <p className="text-lg font-semibold mb-2">ETH Balance</p>
-        <p className="text-2xl text-right">{ethBalance} ETH</p>
+      <h1 className="text-3xl font-semibold mb-6 text-center">
+        Token Management
+      </h1>
+      {error && <p className="text-red-600 text-center">{error}</p>}
+      <div className="bg-white rounded-lg shadow-md p-6 md:w-1/2 mx-auto">
+        <p className="text-lg font-semibold mb-2 text-gray-800 text-center">
+          ETH Balance
+        </p>
+        <p className="text-2xl text-right text-gray-800">{ethBalance} ETH</p>
       </div>
     </div>
   );

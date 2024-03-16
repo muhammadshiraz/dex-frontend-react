@@ -29,7 +29,7 @@ function TokenInformation() {
   }, []);
 
   return (
-    <div className="px-8 py-6">
+    <div className="px-4 md:px-8 py-6">
       <h1 className="text-3xl font-semibold mb-6">Token Information</h1>
       {isLoading ? (
         <p>Loading token information...</p>
@@ -37,29 +37,37 @@ function TokenInformation() {
         <p className="text-red-600">{error}</p>
       ) : tokenData ? (
         <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-6">
             <img
               src={tokenData.image.small}
               alt={tokenData.name}
-              className="w-12 h-12 mr-4"
+              className="w-16 h-16 mr-4 rounded-full"
             />
             <div>
-              <h2 className="text-xl font-semibold">{tokenData.name}</h2>
-              <p className="text-gray-600">{tokenData.symbol}</p>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                {tokenData.name}
+              </h2>
+              <p className="text-gray-800 text-lg">{tokenData.symbol}</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="font-semibold">Current Price</p>
-              <p>${tokenData.market_data.current_price.usd}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-gray-100 rounded-lg p-4">
+              <p className="font-semibold text-gray-800">Current Price</p>
+              <p className="text-gray-800">
+                ${tokenData.market_data.current_price.usd}
+              </p>
             </div>
-            <div>
-              <p className="font-semibold">Total Supply</p>
-              <p>{tokenData.market_data.total_supply}</p>
+            <div className="bg-gray-100 rounded-lg p-4">
+              <p className="font-semibold text-gray-800">Total Supply</p>
+              <p className="text-gray-800">
+                {tokenData.market_data.total_supply}
+              </p>
             </div>
-            <div>
-              <p className="font-semibold">Market Cap</p>
-              <p>${tokenData.market_data.market_cap.usd}</p>
+            <div className="bg-gray-100 rounded-lg p-4">
+              <p className="font-semibold text-gray-800">Market Cap</p>
+              <p className="text-gray-800">
+                ${tokenData.market_data.market_cap.usd}
+              </p>
             </div>
             {/* Additional token information can be displayed */}
           </div>

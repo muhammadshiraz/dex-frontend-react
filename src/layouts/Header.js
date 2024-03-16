@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -17,6 +17,7 @@ function Header({ isDarkMode, toggleDarkMode }) {
   const [copied, setCopied] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const { walletAddress, setWalletAddress } = useContext(WalletContext);
+  const mobileMenuRef = useRef(null); // Create a ref for the mobile menu
 
   useEffect(() => {
     const storedWalletAddress = localStorage.getItem('walletAddress');
@@ -24,6 +25,17 @@ function Header({ isDarkMode, toggleDarkMode }) {
       setWalletAddress(storedWalletAddress);
     }
   }, [setWalletAddress]);
+
+  useEffect(() => {
+    // Add or remove the 'open' class based on the showMenu state
+    if (mobileMenuRef.current) {
+      if (showMenu) {
+        mobileMenuRef.current.classList.add('open');
+      } else {
+        mobileMenuRef.current.classList.remove('open');
+      }
+    }
+  }, [showMenu]);
 
   const connectWallet = async () => {
     try {
@@ -64,12 +76,14 @@ function Header({ isDarkMode, toggleDarkMode }) {
       <Link to="/">
         <div className="flex items-end">
           <img src="/logo.png" alt="Nordek" className="h-9 mr-1.5" />
-          <h1 className="text-xl font-medium uppercase">Nordek DEX App</h1>
+          <h1 className="text-xl font-medium uppercase hidden md:flex">
+            Nordek DEX App
+          </h1>
         </div>
       </Link>
-      <nav className="hidden md:flex space-x-8">
+      <nav className="hidden xl:flex space-x-8">
         <Link to="/" className="hover:text-gray-400">
-          Wallet Integration
+          Swap
         </Link>
         <Link to="/token-management" className="hover:text-gray-400">
           Token Management
@@ -84,7 +98,7 @@ function Header({ isDarkMode, toggleDarkMode }) {
           Transaction History
         </Link>
       </nav>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center xl:space-x-4 space-x-7">
         {walletAddress ? (
           <div className="flex items-center bg-[#F0F3FF] rounded-lg px-3 py-1.5">
             <div className={`${isDarkMode ? 'text-[#4A4A4A]' : ''}`}>
@@ -121,45 +135,82 @@ function Header({ isDarkMode, toggleDarkMode }) {
             )}
           </button>
         </div>
-      </div>
-      {/* Mobile Menu Button */}
-      <div className="md:hidden">
-        <button
-          onClick={() => setShowMenu(!showMenu)}
-          className="text-2xl text-[#4A4A4A] focus:outline-none"
-        >
-          {showMenu ? (
-            <FontAwesomeIcon icon={faTimes} />
-          ) : (
-            <FontAwesomeIcon icon={faBars} />
-          )}
-        </button>
-      </div>
-      {/* Mobile Menu */}
-      {showMenu && (
-        <div className="mobile-menu top-0 h-screen">
-          <div className="menu-items">
-            <Link to="/" className="hover:text-gray-400">
-              Wallet Integration
-            </Link>
-            <Link to="/token-management" className="hover:text-gray-400">
-              Token Management
-            </Link>
-            <Link to="/token-discovery" className="hover:text-gray-400">
-              Token Discovery
-            </Link>
-            <Link to="/token-information" className="hover:text-gray-400">
-              Token Information
-            </Link>
-            <Link to="/transaction-history" className="hover:text-gray-400">
-              Transaction History
-            </Link>
-          </div>
-          <button className="close-menu" onClick={() => setShowMenu(false)}>
-            <FontAwesomeIcon icon={faTimes} />
+        {/* Mobile Menu Button */}
+        <div className="xl:hidden">
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className={`text-2xl focus:outline-none ${
+              isDarkMode ? 'text-white' : 'text-[#4A4A4A]'
+            }`}
+          >
+            {showMenu ? (
+              <FontAwesomeIcon icon={faTimes} />
+            ) : (
+              <FontAwesomeIcon icon={faBars} />
+            )}
           </button>
         </div>
+      </div>
+      {/* Mobile Menu Overlay */}
+      {showMenu && (
+        <div
+          className={`mobile-menu-overlay ${isDarkMode ? 'dark-overlay' : 'light-overlay'}`}
+          onClick={() => setShowMenu(false)}
+        ></div>
       )}
+      {/* Mobile Menu */}
+      <div
+        ref={mobileMenuRef}
+        className={`mobile-menu ${showMenu ? 'open' : ''} ${
+          isDarkMode ? 'dark-mode' : ''
+        }`}
+      >
+        <div className="menu-items mt-12">
+          <Link
+            to="/"
+            className="hover:text-gray-400 menu-item"
+            onClick={() => setShowMenu(false)}
+          >
+            Swap
+          </Link>
+          <Link
+            to="/token-management"
+            className="hover:text-gray-400 menu-item"
+            onClick={() => setShowMenu(false)}
+          >
+            Token Management
+          </Link>
+          <Link
+            to="/token-discovery"
+            className="hover:text-gray-400 menu-item"
+            onClick={() => setShowMenu(false)}
+          >
+            Token Discovery
+          </Link>
+          <Link
+            to="/token-information"
+            className="hover:text-gray-400 menu-item"
+            onClick={() => setShowMenu(false)}
+          >
+            Token Information
+          </Link>
+          <Link
+            to="/transaction-history"
+            className="hover:text-gray-400 menu-item"
+            onClick={() => setShowMenu(false)}
+          >
+            Transaction History
+          </Link>
+        </div>
+        <button
+          className={`close-menu ${
+            isDarkMode ? 'text-white' : 'text-[#4A4A4A]'
+          }`}
+          onClick={() => setShowMenu(false)}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+      </div>
     </header>
   );
 }

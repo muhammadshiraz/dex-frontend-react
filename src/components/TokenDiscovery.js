@@ -36,31 +36,26 @@ function TokenDiscovery() {
   };
 
   return (
-    <div className="px-8 py-6">
+    <div className="px-4 md:px-8 py-6">
       <h1 className="text-3xl font-semibold mb-6">Token Discovery</h1>
-      <div className="flex items-center mb-4">
-        <div className="relative flex items-center w-1/5">
+      <div className="flex items-center mb-6">
+        <div className="relative flex items-center w-full md:w-1/2">
           <input
             type="text"
             placeholder="Search by name or symbol"
             value={searchQuery}
             onChange={handleInputChange}
             className="border border-gray-300 rounded-l px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500"
-            style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
           />
-          {searchQuery.length > 0 && (
-            <button
-              onClick={handleSearch}
-              disabled={isLoading}
-              className={`absolute right-0 bg-blue-500 text-white px-4 py-2 rounded-r ${
-                isLoading
-                  ? 'cursor-not-allowed opacity-50'
-                  : 'hover:bg-blue-600'
-              }`}
-            >
-              {isLoading ? 'Searching...' : <FontAwesomeIcon icon={faSearch} />}
-            </button>
-          )}
+          <button
+            onClick={handleSearch}
+            disabled={isLoading}
+            className={`bg-blue-500 text-white px-4 py-2 rounded-r ${
+              isLoading ? 'cursor-not-allowed opacity-50' : 'hover:bg-blue-600'
+            }`}
+          >
+            {isLoading ? 'Searching...' : <FontAwesomeIcon icon={faSearch} />}
+          </button>
         </div>
       </div>
       <div>
