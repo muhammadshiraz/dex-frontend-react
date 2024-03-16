@@ -41,7 +41,7 @@ Follow these instructions to get the project up and running on your local machin
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/dex-frontend.git
+git clone https://github.com/muhammadshiraz/dex-frontend-react.git
 ```
 
 2. Navigate to the project directory:
@@ -74,7 +74,7 @@ npm start
 
 ## Live Demo
 
-Check out the live demo of the application [here](https://dex-frontend.vercel.app).
+Check out the live demo of the application [here](https://dex-frontend-react.vercel.app).
 
 ## Contributing
 
