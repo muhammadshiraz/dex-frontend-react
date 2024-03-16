@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Decentralized Exchange (DEX) Interface",
+  "name": "This assignment is designed to assess your knowledge in building a user-centric and feature-rich application for a decentralised exchange (DEX).",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,14 +8,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo.svg",
+      "src": "logo.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo.svg",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "34x48"
     }
   ],
   "start_url": ".",

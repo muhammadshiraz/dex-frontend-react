@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import LivePriceChart from './LivePriceChart'; // Import the LivePriceChart component
 
 function TokenSwapping() {
   const [fromToken, setFromToken] = useState('');
@@ -136,6 +137,7 @@ function TokenSwapping() {
           )}
         </div>
       </div>
+      <LivePriceChart />
     </div>
   );
 }

@@ -45,7 +45,7 @@ function TokenDiscovery() {
             placeholder="Search by name or symbol"
             value={searchQuery}
             onChange={handleInputChange}
-            className="border border-gray-300 rounded-l px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500"
+            className="border border-gray-300 rounded-l px-4 py-2 w-full focus:outline-none focus:ring focus:border-blue-500 text-gray-800"
           />
           <button
             onClick={handleSearch}
